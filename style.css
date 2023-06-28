@@ -1,5 +1,7 @@
 html {
   font-family: 'Roboto', sans-serif;
+  position: relative;
+  min-height: 100%;
 }
 body {
   margin: 0;
@@ -22,8 +24,8 @@ body {
   flex-direction: row;
   background-color: rgb(255, 255, 255);
   box-shadow: inset 0 -1px 0 0 rgba(0, 0, 0, 0.1);
-  padding-left: 95px;
-  padding-right: 95px;
+  padding-left: 50px;
+  padding-right: 50px;
   font-size: 18px;
 }
 .headerL {
@@ -50,9 +52,10 @@ div.headerR > button {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   padding-top: 35px;
   box-shadow: inset 0px 6px 3px -3px rgba(0, 0, 0, 0.269);
-  padding-bottom: 45px;
+  padding-bottom: 75px;
 }
 .add {
   display: flex;
@@ -176,12 +179,12 @@ div.add > button {
   opacity 0.3s cubic-bezier(0.42, 0, 0.58, 1);
   transform: translate(-50%, -50%) scale(0.8);
   opacity: 0;
-  pointer-events: none; /* Add this line to prevent interaction during animation */
+  pointer-events: none;
 }
 #book-form-container.show {
   transform: translate(-50%, -50%) scale(1);
   opacity: 1;
-  pointer-events: auto; /* Add this line to re-enable interaction */
+  pointer-events: auto;
 }
 #blur-overlay {
   display: none;
@@ -234,71 +237,161 @@ div.add > button {
   font-weight: 700;
   cursor: pointer;
   margin-top: 15px;
+  
 }
 #book-form-container > h1 {
   text-align: center;
 }
 .books {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: repeat(4, 1fr);
-  grid-column-gap: 45px;
-  grid-row-gap: 45px;
-  padding-left: 35px;
-  padding-right: 35px;
-} 
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  grid-gap: 25px;
+  width: 90%;
+  justify-items: center;
+}
 .book-card {
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-  flex-shrink: 1;
-  width: 400px;
-  height: 225px;
+  justify-content: space-between;
+  width: 100%;
+  height: 250px;
   box-shadow: 0px 0px 4px 0px rgba(0,0,0,0.75); 
   border-radius: 8px;
   background-color: white;
   font-size: 18px;
   padding-top: 25px;
   padding-bottom: 25px;
-  text-align: center;
+  text-align: left;
 }
 .book-card > #remove {
   display: flex;
+  align-self: flex-end;
   justify-content: center;
-  align-items: center;
-  background-color: #ff9c9c;
-  border: none;
-  border-radius: 8px;
   width: 200px;
   font-size: 24px;
   padding: 10px;
   cursor: pointer;
+  box-shadow: 0px 0px 4px 0px rgba(0,0,0,0.75); 
+  border: 0px solid #1A1A1A;
+  border-radius: 8px;
+  background-color: #f0f0f0;
+  color: #3B3B3B;
+  font-weight: 600;
+  margin-right: 25px;
 }
 .book-card > #remove:hover {
-  background-color: #ff4c4cbe;
-}
-.book-card > #read:hover {
-  background-color: rgba(101, 253, 101, 0.836);
+  color: #fff;
+  background-color: #1A1A1A;
+  box-shadow: 0px 0px 4px 0px rgba(0,0,0,0.75); 
+  transform: translateY(-1px);
 }
 .book-card > div {
   font-size: 24px;
   font-weight: 400;
   gap: 15px;
   display: flex;
-  justify-content: center;
   align-items: center;
-  margin: 10px;
-  width: 175px;
-  height: 48px;
+  margin-bottom: 15px;
+  margin-left: 25px;
 }
 .book-card > div > input {
   width: 20px;
   height: 20px;
 }
 .book-card > h3 {
-  font-size: 20px;
-  font-weight: 700;
-  margin: 10px;
+  max-width: 400px;
+  font-size: 21px;
+  font-weight: 400;
+  margin-bottom: 15px;
+  margin-top: 0px;
+  margin-left: 25px;
+  margin-right: 25px;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.book-card > h2 {
+  max-width: 400px;
+  font-size: 22px;
+  font-weight: 400;
+  margin-bottom: 15px;
+  margin-top: 0px;
+  margin-left: 25px;
+  margin-right: 25px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
+.read-book {
+  border: 2px solid #9fff9c;
+}
+.unread-book {
+  border: 2px solid rgb(255, 129, 129);
+}
+.unread-book:hover {
+  transform: scale(1.02);
+  
+}
+.unread-book:hover > h2 {
+  white-space: normal;
+  overflow: visible;
+}
+.read-book:hover {
+  transform: scale(1.02);
+}
+.read-book:hover > h2 {
+  white-space: normal;
+  overflow: visible;
+}
+@media (max-width: 500px) {
+  .read-book > h2, .unread-book > h2 {
+    white-space: normal;
+    overflow: visible;
+  }
+  #user-display {
+    display: none;
+  }
+  #book-form-container {
+    width: 80%;
+  }
+  .header {
+    padding: 15px;
+  }
+  .headerL > H1 {
+    display: none;
+  }
+  div.headerL > span {
+    padding-left: 0;
+  }
+  .books {
+    justify-content: center;
+  }
+  .book-card {
+    width: 100%;
+  }
+}
+@media (max-width: 400px) {
+  .books {
+    justify-content: center;
+  }
+  .book-card {
+    width: 87%;
+  }
+}
+.footer {
+  position: absolute;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  font-size: 18px;
+  font-weight: 600;
+  gap: 10px;
+  width: 100%;
+  
+}
+.footer > svg {
+  width: 25px;
+  height: 25px;
+}
